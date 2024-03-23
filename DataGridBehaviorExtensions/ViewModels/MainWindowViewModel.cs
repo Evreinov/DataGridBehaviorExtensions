@@ -4,6 +4,7 @@ using DataGridBehaviorExtensions.Models;
 using DataGridBehaviorExtensions.ViewModels.Base;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using DataGridBehaviorExtensions.Infrastructure.Mappers;
 
 namespace DataGridBehaviorExtensions.ViewModels;
 
@@ -23,12 +24,12 @@ internal class MainWindowViewModel : ViewModel
     }
     #endregion
 
-    #region Collection : ObservableCollection<TestData> - Коллекция с тестовыми данными.
+    #region Collection : ObservableCollection<TestDataViewModel> - Коллекция с тестовыми данными.
     /// <summary>Коллекция с тестовыми данными.</summary>
-    private ObservableCollection<TestData> _collection = new();
+    private ObservableCollection<TestDataViewModel> _collection = new();
 
     /// <summary>Коллекция с тестовыми данными.</summary>
-    public ObservableCollection<TestData> Collection
+    public ObservableCollection<TestDataViewModel> Collection
     {
         get => _collection;
         set => Set(ref _collection, value);
@@ -43,8 +44,8 @@ internal class MainWindowViewModel : ViewModel
 
     private void OnGenerateDataCommandExecute(object? obj)
     {
-        var collection = _testDataService.GenerateTestData(10);
-        Collection = new ObservableCollection<TestData>(collection);
+        var collection = _testDataService.GenerateTestData(10).Select(_ => _.ToViewModel());
+        Collection = new ObservableCollection<TestDataViewModel>(collection);
     }
 
     #endregion
