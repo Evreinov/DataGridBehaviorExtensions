@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using DataGridBehaviorExtensions.Interfaces;
+using DataGridBehaviorExtensions.Services;
 using DataGridBehaviorExtensions.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,5 +25,6 @@ public partial class App : Application
     private static void InitializeServices(IServiceCollection services)
     {
         services.AddSingleton<MainWindowViewModel>();
+        services.AddSingleton<ITestDataService>(new TestDataService());
     }
 }

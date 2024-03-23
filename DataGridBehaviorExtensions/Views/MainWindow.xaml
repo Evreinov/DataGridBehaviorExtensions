@@ -7,7 +7,12 @@
         mc:Ignorable="d"
         DataContext="{Binding MainWindow , Source={StaticResource Locator}}"
         Title="{Binding Title}" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Генерировать" Command="{Binding GenerateDataCommand }"/>
+            </MenuItem>
+        </Menu>
+        <DataGrid ItemsSource="{Binding Collection}" AutoGenerateColumns="True"/>
+    </DockPanel>
 </Window>
