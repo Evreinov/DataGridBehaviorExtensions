@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DataGridBehaviorExtensions"
+        xmlns:i="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors"
+        xmlns:customi="clr-namespace:DataGridBehaviorExtensions.Infrastructure.Controls.Behaviors"
         mc:Ignorable="d"
         DataContext="{Binding MainWindow , Source={StaticResource Locator}}"
         Title="{Binding Title}" Height="450" Width="800">
@@ -13,6 +15,13 @@
                 <MenuItem Header="Генерировать" Command="{Binding GenerateDataCommand }"/>
             </MenuItem>
         </Menu>
-        <DataGrid ItemsSource="{Binding Collection}" AutoGenerateColumns="True"/>
+        <DataGrid ItemsSource="{Binding Collection}"
+                  AutoGenerateColumns="True"
+                  IsReadOnly="True"
+                  CanUserAddRows="False">
+            <i:Interaction.Behaviors>
+                <customi:DataGridGenerateColumnsBehavior/>
+            </i:Interaction.Behaviors>
+        </DataGrid>
     </DockPanel>
 </Window>
