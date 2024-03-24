@@ -1,10 +1,10 @@
 ﻿using DataGridBehaviorExtensions.Infrastructure.Commands;
+using DataGridBehaviorExtensions.Infrastructure.Mappers;
 using DataGridBehaviorExtensions.Interfaces;
-using DataGridBehaviorExtensions.Models;
 using DataGridBehaviorExtensions.ViewModels.Base;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
-using DataGridBehaviorExtensions.Infrastructure.Mappers;
 
 namespace DataGridBehaviorExtensions.ViewModels;
 
@@ -14,7 +14,7 @@ internal class MainWindowViewModel : ViewModel
 
     #region Title : string - Заголовок окна.
     /// <summary>Заголовок окна.</summary>
-    private string? _title = "Главное окно";
+    private string? _title = "Sample";
 
     /// <summary>Заголовок окна.</summary>
     public string? Title
@@ -38,21 +38,27 @@ internal class MainWindowViewModel : ViewModel
 
     #region Команды
 
+    #region Команда - сгенерировать данные.
+    /// <summary>Команда - сгенерировать данные.</summary>
     private readonly ICommand _generateDataCommand;
-    
+
+    /// <summary>Команда - сгенерировать данные.</summary>
     public ICommand GenerateDataCommand => _generateDataCommand;
 
-    private void OnGenerateDataCommandExecute(object? obj)
+    /// <summary>Сгенерировать данные.</summary>
+    private void OnGenerateDataCommandExecute()
     {
         var collection = _testDataService.GenerateTestData(10).Select(_ => _.ToViewModel());
         Collection = new ObservableCollection<TestDataViewModel>(collection);
     }
+    #endregion
 
     #endregion
 
     public MainWindowViewModel(ITestDataService testDataService)
     {
         _testDataService = testDataService;
+
         _generateDataCommand = new RelayCommand(OnGenerateDataCommandExecute);
     }
 }
